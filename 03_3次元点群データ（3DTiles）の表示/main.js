@@ -64,7 +64,7 @@ map.addControl(
   new maplibregl.AttributionControl({
     compact: true, // 著作権情報をコンパクトな形式で表示
     customAttribution:
-      '<a href="https://www.geospatial.jp/ckan/dataset/plateau-22203-numazu-shi-2023" target="_blank">3D都市モデル（Project PLATEAU）沼津市（2023年度）</a>',
+      '<a href="https://www.geospatial.jp/ckan/dataset?q=VIRTUAL+SHIZUOKA&organization=shizuokapref&sort=metadata_modified+desc" target="_blank">VIRTUAL SHIZUOKA 3次元点群データ</a>',
   })
 );
 
@@ -74,16 +74,16 @@ map.on("load", () => {
   const overlay = new deck.MapboxOverlay({
     interleaved: true, // deck.glレイヤーを他のMapLibre GL JSのレイヤーと重ねて描画
     layers: [
-      // 建築物モデル（3D Tiles）を表示するレイヤーを追加
+      // 3次元点群データ（3D Tiles）を表示するレイヤーを追加
       new deck.Tile3DLayer({
-        id: "numazushi-bldg", // レイヤーIDを設定
-        data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-v0-bldg-demo/tileset.json", // 3D TilesのデータURL
+        id: "numazushi-pc", // レイヤーIDを設定
+        data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-pc-demo/tileset.json",
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
-        pointCloud: false, // 点群データとして表示しない（建築物モデルとして表示）
+        pointSize: 2, // 3次元点群データのポイントのサイズを設定
         onTileLoad: (d) => {
           const { content } = d;
-          // 建築物モデルの高さから沼津駅周辺のジオイド高と標高を差し引く
-          content.cartographicOrigin.z -= 40.442 + 8.5;
+          // 3次元点群データの高さから沼津駅周辺の標高を差し引く
+          content.cartographicOrigin.z -= 8.5;
         },
       }),
     ],
