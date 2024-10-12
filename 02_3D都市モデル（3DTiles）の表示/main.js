@@ -79,7 +79,6 @@ map.on("load", () => {
         id: "numazushi-bldg", // レイヤーIDを設定
         data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-v0-bldg-demo/tileset.json", // 3D TilesのデータURL
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
-        pointCloud: false, // 点群データとして表示しない（建築物モデルとして表示）
         onTileLoad: (d) => {
           const { content } = d;
           // 建築物モデルの高さから沼津駅周辺のジオイド高と標高を差し引く
