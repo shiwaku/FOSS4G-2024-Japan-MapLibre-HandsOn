@@ -81,7 +81,6 @@ map.on("load", () => {
         data: "http://localhost:8000/3DTiles_v0.0_4979/tileset.json",
         // data: "https://assets.cms.plateau.reearth.io/assets/a0/f09393-e8b1-404f-bd81-7587ac43a7f6/22203_numazu-shi_city_2023_citygml_2_op_bldg_3dtiles_lod3_no_texture/tileset.json",
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
-        pointCloud: false, // 点群データとして表示しない（建築物モデルとして表示）
         onTileLoad: (d) => {
           const { content } = d;
           // 建築物モデルの高さから沼津駅周辺のジオイド高と標高を差し引く

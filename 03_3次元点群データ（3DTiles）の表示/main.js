@@ -77,7 +77,7 @@ map.on("load", () => {
       // 3次元点群データ（3D Tiles）を表示するレイヤーを追加
       new deck.Tile3DLayer({
         id: "numazushi-pc", // レイヤーIDを設定
-        data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-pc-demo/tileset.json",
+        data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-pc-demo/tileset.json", // 3D TilesのデータURL
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
         pointSize: 2, // 3次元点群データのポイントのサイズを設定
         onTileLoad: (d) => {
