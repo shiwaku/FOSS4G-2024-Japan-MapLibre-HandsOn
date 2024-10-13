@@ -70,26 +70,28 @@ map.addControl(
 
 // マップがすべて読み込まれた後に実行される処理を設定
 map.on("load", () => {
-  // deck.glのレイヤーを追加する
-  const overlay = new deck.MapboxOverlay({
-    interleaved: true, // deck.glレイヤーを他のMapLibre GL JSのレイヤーと重ねて描画
-    layers: [
-      // 建築物モデル（3D Tiles）を表示するレイヤーを追加
-      new deck.Tile3DLayer({
-        id: "numazushi-bldg", // レイヤーIDを設定
-        // data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-v0-bldg-demo/tileset.json", // 3D TilesのデータURL
-        data: "http://localhost:8000/3DTiles_v0.0_4979/tileset.json",
-        // data: "https://assets.cms.plateau.reearth.io/assets/a0/f09393-e8b1-404f-bd81-7587ac43a7f6/22203_numazu-shi_city_2023_citygml_2_op_bldg_3dtiles_lod3_no_texture/tileset.json",
-        opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
-        pointCloud: false, // 点群データとして表示しない（建築物モデルとして表示）
-        onTileLoad: (d) => {
-          const { content } = d;
-          // 建築物モデルの高さから沼津駅周辺のジオイド高と標高を差し引く
-          content.cartographicOrigin.z -= 40.442 + 8.5;
-        },
-      }),
-    ],
+  // PLATEAU建築物モデル（PMTiles）ソース
+  map.addSource("building", {
+    type: "vector",
+    url: "pmtiles://./Building.pmtiles",
+    minzoom: 15,
+    maxzoom: 16,
+    attribution:
+      "<a href='https://www.geospatial.jp/ckan/dataset/plateau' target='_blank'>3D都市モデル Project PLATEAU (国土交通省)</a>, <a href='https://beta.source.coop/repositories/pacificspatial/flateau/description/' target='_blank'>Flateau (based on PLATEAU, created by Pacific Spatial Solutions, Inc.)</a>",
   });
-  // 作成したoverlayを地図に追加
-  map.addControl(overlay);
+
+  // PLATEAU建築物モデル（PMTiles）レイヤ
+  map.addLayer({
+    id: "building",
+    source: "building",
+    "source-layer": "Building",
+    minzoom: 15,
+    maxzoom: 23,
+    type: "fill-extrusion",
+    paint: {
+      "fill-extrusion-color": "#FFFFFF",
+      "fill-extrusion-opacity": 1,
+      "fill-extrusion-height": ["get", "measuredHeight"],
+    },
+  });
 });
