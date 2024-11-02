@@ -24,11 +24,11 @@ maplibregl.addProtocol("pmtiles", (request) => {
 const map = new maplibregl.Map({
   container: "map",
   style: "./std.json", // マップのスタイルを指定
-  center: [138.858642, 35.102764], // マップの初期中心点を指定（経度, 緯度）
-  zoom: 16.5, // マップの初期ズームレベルを設定
-  pitch: 67, // マップの初期ピッチ（傾き）を指定
+  center: [139.760855, 35.654468], // マップの初期中心点を指定（経度, 緯度）
+  zoom: 17.2, // マップの初期ズームレベルを設定
+  pitch: 63, // マップの初期ピッチ（傾き）を指定
   maxPitch: 85, // マップの最大ピッチ角度を指定
-  bearing: 28.9, // マップの初期ベアリング（向き）を指定
+  bearing: 0, // マップの初期ベアリング（向き）を指定
   hash: true, // URLに地図の状態（中心点座標、ズームレベル、ピッチ、ベアリングなど）を反映させる（地図の状態がURLのハッシュに保存されるため、ページ再読み込み時に同じ状態を保持）
   attributionControl: false, // 著作権表示（アトリビュート）を非表示に設定
 });
@@ -68,6 +68,22 @@ map.addControl(
   })
 );
 
+// 環境光を作成
+const ambientLight = new deck.AmbientLight({
+  color: [255, 255, 255],
+  intensity: 7.0
+});
+
+// 平行ライトを作成
+const directionalLight = new deck.DirectionalLight({
+  color: [255, 255, 255],
+  intensity: 12.0,
+  direction: [0, 0, -1]
+});
+
+// ライティングエフェクトを作成
+const lightingEffect = new deck.LightingEffect({ ambientLight, directionalLight });
+
 // マップがすべて読み込まれた後に実行される処理を設定
 map.on("load", () => {
   // deck.glのレイヤーを追加する
@@ -76,18 +92,23 @@ map.on("load", () => {
     layers: [
       // 建築物モデル（3D Tiles）を表示するレイヤーを追加
       new deck.Tile3DLayer({
-        id: "numazushi-bldg", // レイヤーIDを設定
-        data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-v0-bldg-demo/tileset.json", // 3D TilesのデータURL
-        // data: "https://assets.cms.plateau.reearth.io/assets/a0/f09393-e8b1-404f-bd81-7587ac43a7f6/22203_numazu-shi_city_2023_citygml_2_op_bldg_3dtiles_lod3_no_texture/tileset.json",
-        // data: "./52385628_bldg_6697_op/tileset.json",
+        id: "bldg-3dtiles", // レイヤーIDを設定
+        data: "https://public-data.geolonia.com/foss4g-2024-japan-handson/bldg-3dtiles/13999_tokyo_mlit_2023_citygml_1_op_bldg_3dtiles_lod4.2/tileset.json", // 3D TilesのURL
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
         onTileLoad: (d) => {
           const { content } = d;
-          // 建築物モデルの高さから沼津駅周辺のジオイド高と標高を差し引く
-          content.cartographicOrigin.z -= 40.442 + 8.5;
+          // 建築物モデルの高さからジオイド高と標高を差し引く
+          // 【ジオイド高と標高を取得するAPI】
+          // https://api-vt.geolonia.com/altitude.html
+          // 下記のURLで緯度、経度をリクエストすると、ジオイド高と標高が取得できる
+          // https://api-vt.geolonia.com/api/altitude?lat=35.68116277256452&lng=139.76716335256805
+          content.cartographicOrigin.z -= 36.509 + 3.97;
         },
       }),
     ],
+    effects: [
+      lightingEffect
+    ]
   });
   // 作成したoverlayを地図に追加
   map.addControl(overlay);

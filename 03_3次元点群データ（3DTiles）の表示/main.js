@@ -24,11 +24,11 @@ maplibregl.addProtocol("pmtiles", (request) => {
 const map = new maplibregl.Map({
   container: "map",
   style: "./std.json", // マップのスタイルを指定
-  center: [138.858642, 35.102764], // マップの初期中心点を指定（経度, 緯度）
-  zoom: 16.5, // マップの初期ズームレベルを設定
-  pitch: 67, // マップの初期ピッチ（傾き）を指定
+  center: [139.760855, 35.654468], // マップの初期中心点を指定（経度, 緯度）
+  zoom: 17.2, // マップの初期ズームレベルを設定
+  pitch: 63, // マップの初期ピッチ（傾き）を指定
   maxPitch: 85, // マップの最大ピッチ角度を指定
-  bearing: 28.9, // マップの初期ベアリング（向き）を指定
+  bearing: 0, // マップの初期ベアリング（向き）を指定
   hash: true, // URLに地図の状態（中心点座標、ズームレベル、ピッチ、ベアリングなど）を反映させる（地図の状態がURLのハッシュに保存されるため、ページ再読み込み時に同じ状態を保持）
   attributionControl: false, // 著作権表示（アトリビュート）を非表示に設定
 });
@@ -76,14 +76,19 @@ map.on("load", () => {
     layers: [
       // 3次元点群データ（3D Tiles）を表示するレイヤーを追加
       new deck.Tile3DLayer({
-        id: "numazushi-pc", // レイヤーIDを設定
-        data: "https://public-data.geolonia.com/kaken-3dmap-2024/3dtiles-pc-demo/tileset.json", // 3D TilesのデータURL
+        id: "pc-3dtiles", // レイヤーIDを設定
+        data: "https://public-data.geolonia.com/foss4g-2024-japan-handson/pc-3dtiles/tileset.json", // 3D TilesのURL
+        // data: "http://localhost:8000/3dtiles/tileset.json", // 3D TilesのURL
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
-        pointSize: 2, // 3次元点群データのポイントのサイズを設定
+        pointSize: 1, // 3次元点群データのポイントのサイズを設定
         onTileLoad: (d) => {
           const { content } = d;
-          // 3次元点群データの高さから沼津駅周辺の標高を差し引く
-          content.cartographicOrigin.z -= 8.5;
+          // 3次元点群データの高さから標高を差し引く
+          // 【標高を取得するAPI】
+          // https://api-vt.geolonia.com/altitude.html
+          // 下記のURLで緯度、経度をリクエストすると、標高が取得できる
+          // https://api-vt.geolonia.com/api/altitude?lat=35.68116277256452&lng=139.76716335256805
+          content.cartographicOrigin.z -= 3.97;
         },
       }),
     ],
