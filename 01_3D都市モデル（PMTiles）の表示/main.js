@@ -24,11 +24,11 @@ maplibregl.addProtocol("pmtiles", (request) => {
 const map = new maplibregl.Map({
   container: "map",
   style: "./std.json", // マップのスタイルを指定
-  center: [138.858642, 35.102764], // マップの初期中心点を指定（経度, 緯度）
-  zoom: 16.5, // マップの初期ズームレベルを設定
-  pitch: 67, // マップの初期ピッチ（傾き）を指定
+  center: [139.760855, 35.654468], // マップの初期中心点を指定（経度, 緯度）
+  zoom: 17.2, // マップの初期ズームレベルを設定
+  pitch: 63, // マップの初期ピッチ（傾き）を指定
   maxPitch: 85, // マップの最大ピッチ角度を指定
-  bearing: 28.9, // マップの初期ベアリング（向き）を指定
+  bearing: 0, // マップの初期ベアリング（向き）を指定
   hash: true, // URLに地図の状態（中心点座標、ズームレベル、ピッチ、ベアリングなど）を反映させる（地図の状態がURLのハッシュに保存されるため、ページ再読み込み時に同じ状態を保持）
   attributionControl: false, // 著作権表示（アトリビュート）を非表示に設定
 });
@@ -73,8 +73,8 @@ map.on("load", () => {
   // PLATEAU建築物モデル（PMTiles）ソース
   map.addSource("building", {
     type: "vector",
-    url: "pmtiles://./Building.pmtiles",
-    minzoom: 15,
+    url: "pmtiles://./building_lod0.pmtiles",
+    minzoom: 14,
     maxzoom: 16,
     attribution:
       "<a href='https://www.geospatial.jp/ckan/dataset/plateau' target='_blank'>3D都市モデル Project PLATEAU (国土交通省)</a>, <a href='https://beta.source.coop/repositories/pacificspatial/flateau/description/' target='_blank'>Flateau (based on PLATEAU, created by Pacific Spatial Solutions, Inc.)</a>",
@@ -82,16 +82,16 @@ map.on("load", () => {
 
   // PLATEAU建築物モデル（PMTiles）レイヤ
   map.addLayer({
-    id: "building",
+    id: "bldg-pmtiles",
     source: "building",
-    "source-layer": "Building",
-    minzoom: 15,
+    "source-layer": "building_lod0",
+    minzoom: 14,
     maxzoom: 23,
     type: "fill-extrusion",
     paint: {
       "fill-extrusion-color": "#FFFFFF",
       "fill-extrusion-opacity": 1,
-      "fill-extrusion-height": ["get", "measuredHeight"],
+      "fill-extrusion-height": ["get", "measured_height"],
     },
   });
 });
