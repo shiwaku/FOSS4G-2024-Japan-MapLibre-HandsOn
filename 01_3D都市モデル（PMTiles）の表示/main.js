@@ -68,28 +68,28 @@ map.addControl(
 
 // マップがすべて読み込まれた後に実行される処理を設定
 map.on("load", () => {
-  // PLATEAU建築物モデル（PMTiles）ソース
+  // 3D都市モデル建築物モデル（PMTiles）ソース
   map.addSource("building", {
-    type: "vector",
-    url: "pmtiles://https://public-data.geolonia.com/foss4g-2024-japan-handson/bldg-pmtiles/building_lod0.pmtiles",
-    minzoom: 14,
-    maxzoom: 16,
+    type: "vector", // ソースタイプを指定
+    url: "pmtiles://https://public-data.geolonia.com/foss4g-2024-japan-handson/bldg-pmtiles/building_lod0.pmtiles", // PMTilesのURLを指定
+    minzoom: 14, // ソースの最小ズームレベル
+    maxzoom: 16, // ソースの最大ズームレベル
     attribution:
-      "<a href='https://www.geospatial.jp/ckan/dataset/plateau' target='_blank'>3D都市モデル Project PLATEAU (国土交通省)</a>, <a href='https://beta.source.coop/repositories/pacificspatial/flateau/description/' target='_blank'>Flateau (based on PLATEAU, created by Pacific Spatial Solutions, Inc.)</a>",
+      "<a href='https://www.geospatial.jp/ckan/dataset/plateau' target='_blank'>3D都市モデル Project PLATEAU (国土交通省)</a>, <a href='https://beta.source.coop/repositories/pacificspatial/flateau/description/' target='_blank'>Flateau (based on PLATEAU, created by Pacific Spatial Solutions, Inc.)</a>", // データ提供元のクレジットを設定
   });
 
-  // PLATEAU建築物モデル（PMTiles）レイヤ
+  // 3D都市モデル建築物モデル（PMTiles）レイヤ
   map.addLayer({
-    id: "bldg-pmtiles",
-    source: "building",
-    "source-layer": "building_lod0",
-    minzoom: 14,
-    maxzoom: 23,
-    type: "fill-extrusion",
+    id: "bldg-pmtiles", // レイヤのIDを指定
+    source: "building", // 使用するソースを指定
+    "source-layer": "building_lod0", // ソース内のレイヤ名を指定
+    minzoom: 14, // レイヤの最小ズームレベル
+    maxzoom: 23, // レイヤの最大ズームレベル
+    type: "fill-extrusion", // レイヤのタイプを指定（3D描画）
     paint: {
-      "fill-extrusion-color": "#FFFFFF",
-      "fill-extrusion-opacity": 1,
-      "fill-extrusion-height": ["get", "measured_height"],
+      "fill-extrusion-color": "#FFFFFF", // 建物の色を白に設定
+      "fill-extrusion-opacity": 1, // 建物の不透明度を設定
+      "fill-extrusion-height": ["get", "measured_height"], // 建築物の高さ情報をデータの属性から取得して設定
     },
   });
 });
