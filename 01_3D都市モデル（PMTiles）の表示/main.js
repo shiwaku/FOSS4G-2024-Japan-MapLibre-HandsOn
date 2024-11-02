@@ -63,8 +63,6 @@ map.addControl(
 map.addControl(
   new maplibregl.AttributionControl({
     compact: true, // 著作権情報をコンパクトな形式で表示
-    customAttribution:
-      '<a href="https://www.geospatial.jp/ckan/dataset/plateau-22203-numazu-shi-2023" target="_blank">3D都市モデル（Project PLATEAU）沼津市（2023年度）</a>',
   })
 );
 
@@ -73,7 +71,7 @@ map.on("load", () => {
   // PLATEAU建築物モデル（PMTiles）ソース
   map.addSource("building", {
     type: "vector",
-    url: "pmtiles://./building_lod0.pmtiles",
+    url: "pmtiles://https://public-data.geolonia.com/foss4g-2024-japan-handson/bldg-pmtiles/building_lod0.pmtiles",
     minzoom: 14,
     maxzoom: 16,
     attribution:
