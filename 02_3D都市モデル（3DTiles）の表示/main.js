@@ -64,7 +64,7 @@ map.addControl(
   new maplibregl.AttributionControl({
     compact: true, // 著作権情報をコンパクトな形式で表示
     customAttribution:
-      '<a href="https://www.geospatial.jp/ckan/dataset/plateau-22203-numazu-shi-2023" target="_blank">3D都市モデル（Project PLATEAU）沼津市（2023年度）</a>',
+      '<a href="https://www.geospatial.jp/ckan/dataset/plateau-tokyo-takeshiba-2023" target="_blank">国土交通省都市局 東京都サンプルデータ（竹芝モデル）（2023年度）</a>',
   })
 );
 

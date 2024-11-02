@@ -64,7 +64,7 @@ map.addControl(
   new maplibregl.AttributionControl({
     compact: true, // 著作権情報をコンパクトな形式で表示
     customAttribution:
-      '<a href="https://www.geospatial.jp/ckan/dataset?q=VIRTUAL+SHIZUOKA&organization=shizuokapref&sort=metadata_modified+desc" target="_blank">VIRTUAL SHIZUOKA 3次元点群データ</a>',
+      '<a href="https://www.geospatial.jp/ckan/dataset/tokyopc-23ku-2024" target="_blank">東京都デジタルツイン実現プロジェクト 区部点群データ</a>',
   })
 );
 
