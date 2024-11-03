@@ -87,8 +87,8 @@ map.on("load", () => {
     maxzoom: 23, // レイヤの最大ズームレベル
     type: "fill-extrusion", // レイヤのタイプを指定（3D描画）
     paint: {
-      "fill-extrusion-color": "#BF00FF", // 建物の色を白に設定
-      "fill-extrusion-opacity": 0.5, // 建物の不透明度を設定
+      "fill-extrusion-color": "#FFFFFF", // 建物の色を白に設定
+      "fill-extrusion-opacity": 1, // 建物の不透明度を設定
       "fill-extrusion-height": ["get", "measuredHeight"], // 建築物の高さ情報をデータの属性から取得して設定
     },
   });
