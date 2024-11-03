@@ -78,7 +78,6 @@ map.on("load", () => {
       new deck.Tile3DLayer({
         id: "pc-3dtiles", // レイヤーIDを設定
         data: "https://public-data.geolonia.com/foss4g-2024-japan-handson/pc-3dtiles/tileset.json", // 3D TilesのURL
-        // data: "http://localhost:8000/3dtiles/tileset.json", // 3D TilesのURL
         opacity: 1, // レイヤーの不透明度を設定（1は完全に不透明）
         pointSize: 1, // 3次元点群データのポイントのサイズを設定
         onTileLoad: (d) => {
