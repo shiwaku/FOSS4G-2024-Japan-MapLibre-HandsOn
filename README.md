@@ -6,7 +6,7 @@
 PLATEAUの3D都市モデルやLiDAR点群データをPMTiles・3D Tilesで配信し、MapLibre GL JSで表示する技術を学びます。
 
 - **開催日**: 2024年11月9日
-- **イベント**: [FOSS4G 2024 Japan](https://foss4g.osgeo.jp/foss4g-2024-japan/)
+- **イベント**: [FOSS4G 2024 Japan ハンズオン](https://www.osgeo.jp/events/2024-2/foss4g-2024-japan/handson)
 
 ## 講義資料
 
